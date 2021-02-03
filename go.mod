@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/cockroachdb/errors v1.8.2
+	github.com/garyburd/redigo v1.6.2 // indirect
 	github.com/golang/protobuf v1.4.2
 	github.com/julienschmidt/httprouter v1.3.0
 	google.golang.org/grpc v1.35.0
