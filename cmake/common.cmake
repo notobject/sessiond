@@ -1,6 +1,4 @@
-# Copyright 2021 SANGFOR.COM xxxx.
-#
-# cmake build file for vdc-session.
+# cmake build file for sessiond.
 # Assumes protobuf and gRPC have been installed using cmake.
 
 cmake_minimum_required(VERSION 3.5.1)
