@@ -1,0 +1,11 @@
+debug: true
+log:
+  output: /Users/dustin/Projects/go_learning/demo_session/session.log
+  level: debug
+addr:
+  rpc: "0.0.0.0:8080"
+  web: "0.0.0.0:9090"
+redis:
+  addr: "127.0.0.1:16379"
+  db: 0
+  password: ""

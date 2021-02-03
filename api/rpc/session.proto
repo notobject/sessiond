@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package rpc;
+
+option go_package = ".;rpc";
+
+service Session {
+    /* 创建会话 */
+    rpc CreateSession(CreateSessionReq) returns(CreateSessionRsp);
+    /* 更新会话 */
+    rpc UpdateSession(UpdateSessionReq) returns(UpdateSessionRsp);
+    /* 获取会话 */
+    rpc GetSessionInfoByID(GetSessionInfoByIDReq) returns(GetSessionInfoRsp);
+    rpc GetSessionInfoByUserName(GetSessionInfoByUserNameReq) returns(GetSessionInfoRsp);
+    /* 删除会话 */
+    rpc DeleteSession(DeleteSessionReq) returns(DeleteSessionRsp);
+    rpc DeleteSessionBatch(DeleteSessionBatchReq) returns(DeleteSessionBatchRsp);
+    /* 检查会话 */
+    rpc CheckSession(CheckSessionReq) returns(CheckSessionRsp);
+}
+
+// 创建会话
+message CreateSessionReq{
+    string userName = 1;
+    string userInfo = 2;
+}
+message CreateSessionRsp{ 
+    int32 ret = 1;
+    string sessionID = 2;
+    int64 timestamp = 3;
+}
+
+// 检查会话
+message CheckSessionReq {
+    string sessionID = 1;
+}
+message CheckSessionRsp {
+    int32 ret = 1;
+    bool isValid = 2;
+}
+
+// 更新会话
+message UpdateSessionReq {
+    string sessionID = 1;
+    string userInfo = 2;
+}
+message UpdateSessionRsp {
+    int32 ret = 1;
+    int64 timestamp = 2;
+}
+
+// 获取会话信息
+message GetSessionInfoByIDReq {
+    string sessionID = 1;
+}
+message GetSessionInfoByUserNameReq {
+    string userName = 1;
+}
+message GetSessionInfoRsp {
+    int32 ret = 1;
+    string sessionID = 2;
+    string userName = 3;
+    string userInfo = 4;
+}
+
+// 删除会话
+message DeleteSessionReq {
+    string sessionID = 1;
+}
+message DeleteSessionRsp {
+    int32 ret = 1;
+}
+// 批量删除会话
+message DeleteSessionBatchReq {
+    repeated string  sessionIDs = 1;
+}
+message DeleteSessionBatchRsp {
+    int32 ret = 1;
+    // sessionID, ret
+    map<string, int32> retMap = 2;
+}
