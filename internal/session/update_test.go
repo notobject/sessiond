@@ -20,3 +20,13 @@ func TestUpdateSession(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func BenchmarkUpdateSession(b *testing.B) {
+	client := testNewSessionClient()
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		client.UpdateSession(context.Background(),
+			&rpc.UpdateSessionReq{SessionID: "ABCDEFG1234", UserInfo: "aaa"})
+	}
+}

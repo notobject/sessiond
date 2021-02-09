@@ -7,7 +7,7 @@ import (
 	rpc "github.com/notobject/sessiond/api/rpc"
 )
 
-func TestGetSession(t *testing.T) {
+func TestGetSessionInfoByID(t *testing.T) {
 	client := testNewSessionClient()
 	rsp1, err := client.GetSessionInfoByID(context.Background(), &rpc.GetSessionInfoByIDReq{
 		SessionID: "ABCDEFG1234",
@@ -27,6 +27,20 @@ func TestGetSession(t *testing.T) {
 	}
 }
 
+func TestGetSessionInfoByUserName(t *testing.T) {
+	client := testNewSessionClient()
+	rsp, err := client.GetSessionInfoByUserName(context.Background(), &rpc.GetSessionInfoByUserNameReq{
+		UserName: "ldp",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(rsp)
+	if rsp.Ret != 0 {
+		t.Fail()
+	}
+}
+
 func BenchmarkGetSession(b *testing.B) {
 	client := testNewSessionClient()
 	b.ResetTimer()
@@ -35,5 +49,4 @@ func BenchmarkGetSession(b *testing.B) {
 		client.GetSessionInfoByID(context.Background(), &rpc.GetSessionInfoByIDReq{
 			SessionID: "ABCDEFG1234"})
 	}
-
 }
