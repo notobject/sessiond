@@ -11,7 +11,7 @@
 3. Protobuf安装
 > protobuf v3.14.0
 
-4. Docker安装
+4. Docker安装（用于运行redis）
 > Docker Engine - Community v20.10.1
 
 ## 运行
