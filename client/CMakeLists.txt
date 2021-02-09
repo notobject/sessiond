@@ -5,7 +5,7 @@
 get_filename_component(proto "../api/rpc/session.proto" ABSOLUTE)
 get_filename_component(proto_path "${proto}" PATH)
 
-# Generated sources
+# Generated sources of pb
 set(proto_srcs "${CMAKE_CURRENT_SOURCE_DIR}/session.pb.cc")
 set(proto_hdrs "${CMAKE_CURRENT_SOURCE_DIR}/session.pb.h")
 set(grpc_srcs "${CMAKE_CURRENT_SOURCE_DIR}/session.grpc.pb.cc")
@@ -21,26 +21,30 @@ add_custom_command(
       DEPENDS "${proto}")
 
 # Include generated *.pb.h files
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
+include_directories(
+  "${CMAKE_CURRENT_SOURCE_DIR}"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
 
-# grpc_proto
-add_library(grpc_proto
+# libsession
+add_library(session SHARED
   ${grpc_srcs}
   ${grpc_hdrs}
   ${proto_srcs}
-  ${proto_hdrs})
-target_link_libraries(grpc_proto
+  ${proto_hdrs}
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/client_debug.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/session.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/lib/session_client.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/lib/session.cpp"
+)
+target_link_libraries(session
   ${_REFLECTION}
   ${_GRPC_GRPCPP}
-  ${_PROTOBUF_LIBPROTOBUF})
+  ${_PROTOBUF_LIBPROTOBUF}
+)
 
-# Targets greeter_[async_](client|server)
-foreach(_target session_client)
-  add_executable(${_target} "${_target}.cc")
-
-  target_link_libraries(${_target}
-    grpc_proto
-    ${_REFLECTION}
-    ${_GRPC_GRPCPP}
-    ${_PROTOBUF_LIBPROTOBUF})
-endforeach()
+# client_test
+add_executable(client_test "${CMAKE_CURRENT_SOURCE_DIR}/test/client_test.c")
+target_link_libraries(client_test
+  session
+)
