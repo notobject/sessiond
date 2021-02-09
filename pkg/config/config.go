@@ -37,7 +37,6 @@ type RedisConfig struct {
 }
 
 var (
-	path = "/Users/dustin/Projects/go_learning/demo_session/etc/session_dev.yaml"
 	cfg  *Config
 	lock sync.Mutex
 )

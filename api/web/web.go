@@ -1,5 +1,7 @@
 package web
 
+// Web服务, 提供pull模式的监控接口
+
 import (
 	"log"
 	"net/http"

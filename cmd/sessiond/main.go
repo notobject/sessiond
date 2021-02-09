@@ -33,6 +33,8 @@ func main() {
 	// 启动Web服务
 	web.Start(cfg)
 
+	// TODO Start Session Check
+
 	// 阻塞主线程
 	select {}
 }
