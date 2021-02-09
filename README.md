@@ -26,6 +26,6 @@ $ make run_redis_slave   # Run redis of slave
 $ cd $SESSIOND_HOME_PATH/build/cmd/sessiond && ./sessiond --config $SESSIOND_HOME_PATH/etc/session_dev.yaml
 
 # change to another terminal
-$ cd $SESSIOND_HOME_PATH/build && ./session_client
+$ cd $SESSIOND_HOME_PATH/build/client/test && ./client_test
 ``` 
 
